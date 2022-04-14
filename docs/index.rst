@@ -1,5 +1,5 @@
 Welcome to objective-weighting documentation!
-===================================
+===============================================
 
 `objective-weighting` is Python 3 library dedicated to multi-criteria decision analysis with criteria weights determined by objective weighting methods.
 This library includes:

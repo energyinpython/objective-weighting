@@ -6,7 +6,7 @@ Usage
 Installation
 -------------
 
-To use objective_weighting, first install it using pip:
+To use `objective_weighting` package, first install it using pip:
 
 .. code-block:: python
 
@@ -23,8 +23,8 @@ __________________
 .. code-block:: python
 
 	import numpy as np
-	from objective_weights_mcda.mcda_methods import VIKOR
-	from objective_weights_mcda.additions import rank_preferences
+	from objective_weighting.mcda_methods import VIKOR
+	from objective_weighting.additions import rank_preferences
 
 	# Provide decision matrix in array numpy.darray.
 	matrix = np.array([[8, 7, 2, 1],
@@ -68,7 +68,7 @@ Spearman correlation coefficient
 .. code-block:: python
 
 	import numpy as np
-	from objective_weights_mcda import correlations as corrs
+	from objective_weighting import correlations as corrs
 
 	# Provide two vectors with rankings obtained with different MCDA methods.
 	R = np.array([1, 2, 3, 4, 5])
@@ -91,7 +91,7 @@ Weighted Spearman correlation coefficient
 .. code-block:: python
 
 	import numpy as np
-	from objective_weights_mcda import correlations as corrs
+	from objective_weighting import correlations as corrs
 
 	# Provide two vectors with rankings obtained with different MCDA methods.
 	R = np.array([1, 2, 3, 4, 5])
@@ -114,7 +114,7 @@ Pearson correlation coefficient
 .. code-block:: python
 
 	import numpy as np
-	from objective_weights_mcda import correlations as corrs
+	from objective_weighting import correlations as corrs
 
 	# Provide two vectors with rankings obtained with different MCDA methods.
 	R = np.array([1, 2, 3, 4, 5])
@@ -140,7 +140,7 @@ Entropy weighting method
 .. code-block:: python
 
 	import numpy as np
-	from objective_weights_mcda import weighting_methods as mcda_weights
+	from objective_weighting import weighting_methods as mcda_weights
 
 	matrix = np.array([[30, 30, 38, 29],
 	[19, 54, 86, 29],
@@ -163,7 +163,7 @@ CRITIC weighting method
 .. code-block:: python
 
 	import numpy as np
-	from objective_weights_mcda import weighting_methods as mcda_weights
+	from objective_weighting import weighting_methods as mcda_weights
 
 	matrix = np.array([[5000, 3, 3, 4, 3, 2],
 	[680, 5, 3, 2, 2, 1],
@@ -187,7 +187,7 @@ Standard deviation weighting method
 .. code-block:: python
 
 	import numpy as np
-	from objective_weights_mcda import weighting_methods as mcda_weights
+	from objective_weighting import weighting_methods as mcda_weights
 
 	matrix = np.array([[0.619, 0.449, 0.447],
 	[0.862, 0.466, 0.006],
@@ -428,7 +428,7 @@ Vector normalization
 .. code-block:: python
 
 	import numpy as np
-	from objective_weights_mcda import normalizations as norms
+	from objective_weighting import normalizations as norms
 
 	matrix = np.array([[8, 7, 2, 1],
 	[5, 3, 7, 5],
