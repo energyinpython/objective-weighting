@@ -8,7 +8,7 @@ import seaborn as sns
 from objective_weighting.mcda_methods import VIKOR
 from objective_weighting.additions import rank_preferences
 from objective_weighting import correlations as corrs
-from objective_weighting import normalizations as norm_methods
+from objective_weighting import normalizations as norms
 from objective_weighting import weighting_methods as mcda_weights
 
 
@@ -139,12 +139,12 @@ def main():
     weights = mcda_weights.entropy_weighting(matrix)
 
     # Create the VIKOR method object
-    vikor = VIKOR(normalization_method=norm_methods.minmax_normalization)
+    vikor = VIKOR(normalization_method=norms.minmax_normalization)
     
     # Calculate alternatives preference function values with VIKOR method
     pref = vikor(matrix, weights, types)
 
-    # rank alternatives according to preference values
+    # Rank alternatives according to preference values
     rank = rank_preferences(pref, reverse = False)
 
     # save results in dataframe

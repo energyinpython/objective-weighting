@@ -6,7 +6,7 @@ Usage
 Installation
 -------------
 
-To use `objective_weighting` package, first install it using pip:
+To use ``objective_weighting`` package, first install it using pip:
 
 .. code-block:: python
 
