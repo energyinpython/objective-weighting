@@ -31,6 +31,10 @@ def plot_barplot(df_plot, x_name, y_name, title):
             name of y axis, Ranks or Weight values
         title : str
             name of chart title, Weighting methods or Criteria
+
+    Examples
+    ----------
+    >>> plot_barplot(df_plot, x_name, y_name, title)
     """
     
     list_rank = np.arange(1, len(df_plot) + 1, 1)
@@ -57,6 +61,7 @@ def plot_barplot(df_plot, x_name, y_name, title):
     ax.grid(True, linestyle = '--')
     ax.set_axisbelow(True)
     plt.tight_layout()
+    plt.savefig('results/bar_chart_weights_' + x_name + '.pdf')
     plt.show()
 
 
@@ -66,10 +71,14 @@ def draw_heatmap(data, title):
 
     Parameters
     ----------
-    data : dataframe
-        dataframe with correlation values between compared rankings
-    title : str
-        title of chart containing name of used correlation coefficient
+        data : dataframe
+            dataframe with correlation values between compared rankings
+        title : str
+            title of chart containing name of used correlation coefficient
+
+    Examples
+    ----------
+    >>> draw_heatmap(data, title)
     """
 
     plt.figure(figsize = (6, 4))
@@ -80,6 +89,7 @@ def draw_heatmap(data, title):
     plt.xlabel('Weighting methods')
     plt.title('Correlation coefficient: ' + title)
     plt.tight_layout()
+    plt.savefig('results/heatmap_weights.pdf')
     plt.show()
 
 
@@ -89,8 +99,12 @@ def plot_boxplot(data):
 
     Parameters
     ----------
-    data : dataframe
-        dataframe with correlation values between compared rankings
+        data : dataframe
+            dataframe with correlation values between compared rankings
+
+    Examples
+    ---------
+    >>> plot_boxplot(data)
     """
     
     df_melted = pd.melt(data)
@@ -101,6 +115,7 @@ def plot_boxplot(data):
     ax.set_xlabel('Criterion', fontsize = 12)
     ax.set_ylabel('Different weights distribution', fontsize = 12)
     plt.tight_layout()
+    plt.savefig('results/boxplot_weights.pdf')
     plt.show()
 
 
