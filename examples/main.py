@@ -12,7 +12,6 @@ from objective_weighting import normalizations as norms
 from objective_weighting import weighting_methods as mcda_weights
 
 
-
 # Functions for visualizations
 
 def plot_barplot(df_plot, x_name, y_name, title):
@@ -148,7 +147,7 @@ def main():
     # Symbols for columns Cj
     cols = [r'$C_{' + str(j) + '}$' for j in range(1, data.shape[1] + 1)]
 
-    # part 1 - study with single weighting method
+    # Part 1 - study with single weighting method
     
     # Determine criteria weights with chosen weighting method
     weights = mcda_weights.entropy_weighting(matrix)
@@ -167,7 +166,7 @@ def main():
     df_results['Pref'] = pref
     df_results['Rank'] = rank
 
-    # part 2 - study with several weighting methods
+    # Part 2 - study with several weighting methods
     # Create a list with weighting methods that you want to explore
     weighting_methods_set = [
         mcda_weights.entropy_weighting,
@@ -194,7 +193,6 @@ def main():
 
     for weight_type in weighting_methods_set:
         
-        #if (weight_type.__name__ == "cilos_weighting") or (weight_type.__name__ == "idocriw_weighting") or (weight_type.__name__ == "angle_weighting") or (weight_type.__name__ == "merec_weighting"):
         if weight_type.__name__ in ["cilos_weighting", "idocriw_weighting", "angle_weighting", "merec_weighting"]:
             weights = weight_type(matrix, types)
         else:
@@ -207,6 +205,7 @@ def main():
         df_rankings[weight_type.__name__[:-10].upper().replace('_', ' ')] = rank
         
 
+    df_rankings.to_csv('results/rankings.csv')
     # plot criteria weights distribution using box chart
     plot_boxplot(df_weights.T)
 
