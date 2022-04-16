@@ -419,8 +419,8 @@ Output
 Normalization methods
 ______________________
 
-Here is an example of `vector_normalization` usage. Other normalizations provided in module `normalizations`, namely `minmax_normalization`, `max_normalization`,
-`sum_normalization`, `linear_normalization` are used in analogous way.
+Here is an example of ``vector_normalization`` usage. Other normalizations provided in module ``normalizations``, namely ``minmax_normalization``, ``max_normalization``,
+``sum_normalization``, ``linear_normalization`` are used in analogous way.
 
 
 Vector normalization

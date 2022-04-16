@@ -144,6 +144,7 @@ def critic_weighting(matrix):
 def gini_weighting(matrix):
     """
     Calculate criteria weights using objective Gini coefficient-based weighting method.
+
     Parameters
     ----------
         matrix : ndarray
@@ -182,6 +183,7 @@ def gini_weighting(matrix):
 def merec_weighting(matrix, types):
     """
     Calculate criteria weights using objective MEREC weighting method.
+
     Parameters
     -----------
         matrix : ndarray
@@ -229,6 +231,7 @@ def merec_weighting(matrix, types):
 def stat_var_weighting(matrix):
     """
     Calculate criteria weights using objective Statistical variance weighting method.
+
     Parameters
     ----------
         matrix : ndarray
@@ -258,6 +261,7 @@ def stat_var_weighting(matrix):
 def cilos_weighting(matrix, types):
     """
     Calculate criteria weights using objective CILOS weighting method.
+
     Parameters
     ----------
         matrix : ndarray
@@ -305,6 +309,7 @@ def cilos_weighting(matrix, types):
 def idocriw_weighting(matrix, types):
     """
     Calculate criteria weights using objective IDOCRIW weighting method.
+
     Parameters
     ----------
         matrix : ndarray
@@ -334,6 +339,7 @@ def idocriw_weighting(matrix, types):
 def angle_weighting(matrix, types):
     """
     Calculate criteria weights using objective Angle weighting method.
+
     Parameters
     ----------
         matrix : ndarray
@@ -366,6 +372,7 @@ def angle_weighting(matrix, types):
 def coeff_var_weighting(matrix):
     """
     Calculate criteria weights using objective Coefficient of variation weighting method.
+    
     Parameters
     ----------
         matrix : ndarray
