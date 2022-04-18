@@ -1,7 +1,7 @@
 import numpy as np
 
 # Linear normalization
-def linear_normalization(X, types):
+def linear_normalization(matrix, types):
     """
     Normalize decision matrix using linear normalization method.
 
@@ -21,14 +21,14 @@ def linear_normalization(X, types):
     ----------
     >>> nmatrix = linear_normalization(matrix, types)
     """
-    x_norm = np.zeros(np.shape(X))
-    x_norm[:, types == 1] = X[:, types == 1] / (np.amax(X[:, types == 1], axis = 0))
-    x_norm[:, types == -1] = np.amin(X[:, types == -1], axis = 0) / X[:, types == -1]
+    x_norm = np.zeros(np.shape(matrix))
+    x_norm[:, types == 1] = matrix[:, types == 1] / (np.amax(matrix[:, types == 1], axis = 0))
+    x_norm[:, types == -1] = np.amin(matrix[:, types == -1], axis = 0) / matrix[:, types == -1]
     return x_norm
 
 
 # Mininum-Maximum normalization
-def minmax_normalization(X, types):
+def minmax_normalization(matrix, types):
     """
     Normalize decision matrix using minimum-maximum normalization method.
 
@@ -48,18 +48,18 @@ def minmax_normalization(X, types):
     ----------
     >>> nmatrix = minmax_normalization(matrix, types)
     """
-    x_norm = np.zeros((X.shape[0], X.shape[1]))
-    x_norm[:, types == 1] = (X[:, types == 1] - np.amin(X[:, types == 1], axis = 0)
-                             ) / (np.amax(X[:, types == 1], axis = 0) - np.amin(X[:, types == 1], axis = 0))
+    x_norm = np.zeros((matrix.shape[0], matrix.shape[1]))
+    x_norm[:, types == 1] = (matrix[:, types == 1] - np.amin(matrix[:, types == 1], axis = 0)
+                             ) / (np.amax(matrix[:, types == 1], axis = 0) - np.amin(matrix[:, types == 1], axis = 0))
 
-    x_norm[:, types == -1] = (np.amax(X[:, types == -1], axis = 0) - X[:, types == -1]
-                           ) / (np.amax(X[:, types == -1], axis = 0) - np.amin(X[:, types == -1], axis = 0))
+    x_norm[:, types == -1] = (np.amax(matrix[:, types == -1], axis = 0) - matrix[:, types == -1]
+                           ) / (np.amax(matrix[:, types == -1], axis = 0) - np.amin(matrix[:, types == -1], axis = 0))
 
     return x_norm
 
 
 # Maximum normalization
-def max_normalization(X, types):
+def max_normalization(matrix, types):
     """
     Normalize decision matrix using maximum normalization method.
 
@@ -79,14 +79,14 @@ def max_normalization(X, types):
     ----------
     >>> nmatrix = max_normalization(matrix, types)
     """
-    maximes = np.amax(X, axis = 0)
-    X = X / maximes
-    X[:, types == -1] = 1 - X[:, types == -1]
-    return X
+    maximes = np.amax(matrix, axis = 0)
+    matrix = matrix / maximes
+    matrix[:, types == -1] = 1 - matrix[:, types == -1]
+    return matrix
 
 
 # Sum normalization
-def sum_normalization(X, types):
+def sum_normalization(matrix, types):
     """
     Normalize decision matrix using sum normalization method.
 
@@ -106,15 +106,15 @@ def sum_normalization(X, types):
     ----------
     >>> nmatrix = sum_normalization(matrix, types)
     """
-    x_norm = np.zeros((X.shape[0], X.shape[1]))
-    x_norm[:, types == 1] = X[:, types == 1] / np.sum(X[:, types == 1], axis = 0)
-    x_norm[:, types == -1] = (1 / X[:, types == -1]) / np.sum((1 / X[:, types == -1]), axis = 0)
+    x_norm = np.zeros((matrix.shape[0], matrix.shape[1]))
+    x_norm[:, types == 1] = matrix[:, types == 1] / np.sum(matrix[:, types == 1], axis = 0)
+    x_norm[:, types == -1] = (1 / matrix[:, types == -1]) / np.sum((1 / matrix[:, types == -1]), axis = 0)
 
     return x_norm
 
 
 # Vector normalization
-def vector_normalization(X, types):
+def vector_normalization(matrix, types):
     """
     Normalize decision matrix using vector normalization method.
 
@@ -134,8 +134,8 @@ def vector_normalization(X, types):
     -----------
     >>> nmatrix = vector_normalization(matrix, types)
     """
-    x_norm = np.zeros((X.shape[0], X.shape[1]))
-    x_norm[:, types == 1] = X[:, types == 1] / (np.sum(X[:, types == 1] ** 2, axis = 0))**(0.5)
-    x_norm[:, types == -1] = 1 - (X[:, types == -1] / (np.sum(X[:, types == -1] ** 2, axis = 0))**(0.5))
+    x_norm = np.zeros((matrix.shape[0], matrix.shape[1]))
+    x_norm[:, types == 1] = matrix[:, types == 1] / (np.sum(matrix[:, types == 1] ** 2, axis = 0))**(0.5)
+    x_norm[:, types == -1] = 1 - (matrix[:, types == -1] / (np.sum(matrix[:, types == -1] ** 2, axis = 0))**(0.5))
 
     return x_norm

@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="objective-weighting",
-    version="0.1.0",
+    version="0.1.1",
     author="Aleksandra Bączkiewicz",
     author_email="aleksandra.baczkiewicz@phd.usz.edu.pl",
     description="The Python 3 Library of Objective Weighting Techniques for MCDA methods.",

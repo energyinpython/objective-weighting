@@ -4,10 +4,10 @@
 
 project = 'objective-weighting'
 copyright = '2022, energyinpython'
-author = 'energyinpython'
+author = 'Aleksandra Bączkiewicz'
 
 release = '0.1'
-version = '0.0.3'
+version = '0.1.1'
 
 # -- General configuration
 
