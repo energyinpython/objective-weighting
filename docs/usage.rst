@@ -415,6 +415,17 @@ Output
 	Coefficient of variation weights:  [0.4258 0.361  0.2121 0.0011]
 	
 	
+Stochastic Multicriteria Acceptability Analysis Method - SMAA (VIKOR_SMAA)
+_______________________________________________________________________________
+
+.. code-block:: python
+
+	from objective_weighting.mcda_methods import VIKOR_SMAA
+
+	vikor_smaa = VIKOR_SMAA()
+	acceptability_index, central_weights = vikor_smaa(matrix, types, iterations = 10000)
+	
+	
 	
 Normalization methods
 ______________________

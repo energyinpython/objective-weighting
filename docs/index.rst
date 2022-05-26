@@ -20,6 +20,8 @@ This library includes:
 	- ``angle_weighting`` (Angle weighting method)
 	- ``coeff_var_weighting`` (Coefficient of variation weighting method)
 	
+- Stochastic Multicriteria Acceptability Analysis Method - SMAA combined with VIKOR (``VIKOR_SMAA``)
+	
 - Correlation coefficients:
 
 	- ``spearman`` (Spearman rank correlation coefficient)
