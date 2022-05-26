@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from objective_weighting.mcda_methods import VIKOR
+from objective_weighting.mcda_methods import VIKOR_SMAA
 from objective_weighting.additions import rank_preferences
 from objective_weighting import correlations as corrs
 from objective_weighting import normalizations as norms
@@ -42,6 +43,8 @@ def plot_barplot(df_plot, x_name, y_name, title):
     if x_name == 'Alternatives':
         stacked = False
         width = 0.8
+    elif x_name == 'Alternative':
+        pass
     else:
         df_plot = df_plot.T
     ax = df_plot.plot(kind='bar', width = width, stacked=stacked, edgecolor = 'black', figsize = (9,4))
@@ -61,6 +64,7 @@ def plot_barplot(df_plot, x_name, y_name, title):
     ax.set_axisbelow(True)
     plt.tight_layout()
     plt.savefig('results/bar_chart_weights_' + x_name + '.pdf')
+    plt.savefig('results/bar_chart_weights_' + x_name + '.eps')
     plt.show()
 
 
@@ -89,6 +93,38 @@ def draw_heatmap(data, title):
     plt.title('Correlation coefficient: ' + title)
     plt.tight_layout()
     plt.savefig('results/heatmap_weights.pdf')
+    plt.savefig('results/heatmap_weights.eps')
+    plt.show()
+
+def draw_heatmap_smaa(data, title):
+    """
+    Display heatmap with correlations of compared rankings generated using different methods
+
+    Parameters
+    ----------
+        data : dataframe
+            dataframe with correlation values between compared rankings
+        title : str
+            title of chart containing name of used correlation coefficient
+
+    Examples
+    ----------
+    >>> draw_heatmap(data, title)
+    """
+
+    # plt.rcParams['xtick.bottom'] = plt.rcParams['xtick.labelbottom'] = False
+    # plt.rcParams['xtick.top'] = plt.rcParams['xtick.labeltop'] = True
+    sns.set(font_scale=1.0)
+    heatmap = sns.heatmap(data, annot=True, fmt=".2f", cmap="RdYlBu_r",
+                        linewidth=0.05, linecolor='w')
+    plt.yticks(rotation=0)
+    plt.ylabel('Alternatives')
+    plt.tick_params(labelbottom=False,labeltop=True)
+    
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig('results/heatmap_smaa.pdf')
+    plt.savefig('results/heatmap_smaa.eps')
     plt.show()
 
 
@@ -115,6 +151,7 @@ def plot_boxplot(data):
     ax.set_ylabel('Different weights distribution', fontsize = 12)
     plt.tight_layout()
     plt.savefig('results/boxplot_weights.pdf')
+    plt.savefig('results/boxplot_weights.eps')
     plt.show()
 
 
@@ -130,6 +167,7 @@ class Create_dictionary(dict):
         self[key] = value
 
 
+# main
 def main():
     # Load data from CSV
     filename = 'dataset_cars.csv'
@@ -147,13 +185,15 @@ def main():
     # Symbols for columns Cj
     cols = [r'$C_{' + str(j) + '}$' for j in range(1, data.shape[1] + 1)]
 
+    '''
     # Part 1 - study with single weighting method
     
     # Determine criteria weights with chosen weighting method
     weights = mcda_weights.entropy_weighting(matrix)
 
     # Create the VIKOR method object
-    vikor = VIKOR(normalization_method=norms.minmax_normalization)
+    # vikor = VIKOR(normalization_method=norms.minmax_normalization)
+    vikor = VIKOR()
     
     # Calculate alternatives preference function values with VIKOR method
     pref = vikor(matrix, weights, types)
@@ -232,6 +272,33 @@ def main():
 
     # Plot heatmap with rankings correlation
     draw_heatmap(df_new_heatmap_rw, r'$r_w$')
+
+    # check
+    # Central weight vector
+    w = np.array([0.0759, 0.0383, 0.0425, 0.0460, 0.0427, 0.1504, 0.1532, 0.1401, 0.0382, 0.1568, 0.1159])
+
+    pref = vikor(matrix, w, types)
+
+    # Rank alternatives according to preference values
+    rank = rank_preferences(pref, reverse = False)
+    print(rank)
+    '''
+
+    # SMAA
+    
+    cols_ai = [str(el) for el in range(1, matrix.shape[0] + 1)]
+
+    vikor_smaa = VIKOR_SMAA()
+    acceptability_index, central_weights = vikor_smaa(matrix, types, iterations = 10000)
+
+    acc_in_df = pd.DataFrame(acceptability_index, index = list_alt_names, columns = cols_ai)
+    acc_in_df.to_csv('results_smaa/ai.csv')
+    plot_barplot(acc_in_df, 'Alternative', 'Rank acceptability index', 'Rank')
+
+    draw_heatmap_smaa(acc_in_df, 'Rank acceptability indexes')
+
+    central_weights_df = pd.DataFrame(central_weights, index = list_alt_names, columns = cols)
+    central_weights_df.to_csv('results_smaa/cw.csv')
 
 
 if __name__ == '__main__':
