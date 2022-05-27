@@ -1,6 +1,7 @@
 import numpy as np
 
 from .mcda_method_smaa import MCDA_method_smaa
+from .vikor import VIKOR
 from ..additions import rank_preferences
 
 
@@ -37,14 +38,15 @@ class VIKOR_SMAA(MCDA_method_smaa):
         
         Returns
         --------
-            ndrarray, ndarray
+            ndrarray, ndarray, ndarray
                 Matrix with acceptability indexes values for each alternative in rows in relation to each rank in columns,
                 Matrix with central weight vectors for each alternative in rows
+                Matrix with final ranking of alternatives
         
         Examples
         ---------
         >>> vikor_smaa = VIKOR_SMAA(normalization_method = minmax_normalization)
-        >>> acceptability_index, central_weights = vikor_smaa(matrix, types, iterations = 10000)
+        >>> acceptability_index, central_weights, rank_scores = vikor_smaa(matrix, types, iterations = 10000)
         """
 
         VIKOR_SMAA._verify_input_data(matrix, types, iterations)
@@ -79,61 +81,41 @@ class VIKOR_SMAA(MCDA_method_smaa):
         # Central weight vector for each alternative
         central_weights = np.zeros((m, n))
         
-        # Acceptability index of each place for each alternative
+        # Rank acceptability index of each place for each alternative
         acceptability_index = np.zeros((m, m))
+
+        # Ranks
+        rank_score = np.zeros(m)
 
         for it in range(iterations):
             # generate weights
             weights = self._generate_weights(n)
-        
+
             # run the VIKOR algorithm
-            # Without applying a special normalization method
-            if normalization_method == None:
-
-                # Determine the best `fstar` and the worst `fmin` values of all criterion function
-                maximums_matrix = np.amax(matrix, axis = 0)
-                minimums_matrix = np.amin(matrix, axis = 0)
-
-                fstar = np.zeros(matrix.shape[1])
-                fmin = np.zeros(matrix.shape[1])
-
-                # for profit criteria (`types` == 1) and for cost criteria (`types` == -1)
-                fstar[types == 1] = maximums_matrix[types == 1]
-                fstar[types == -1] = minimums_matrix[types == -1]
-                fmin[types == 1] = minimums_matrix[types == 1]
-                fmin[types == -1] = maximums_matrix[types == -1]
-
-                weighted_matrix = weights * ((fstar - matrix) / (fstar - fmin))
-            else:
-                # With applying the special normalization method
-                norm_matrix = normalization_method(matrix, types)
-                fstar = np.amax(norm_matrix, axis = 0)
-                fmin = np.amin(norm_matrix, axis = 0)
-                weighted_matrix = weights * ((fstar - norm_matrix) / (fstar - fmin))
-
-            # Calculate the `S` and `R` values
-            S = np.sum(weighted_matrix, axis = 1)
-            R = np.amax(weighted_matrix, axis = 1)
-            # Calculate the Q values
-            Sstar = np.min(S)
-            Smin = np.max(S)
-            Rstar = np.min(R)
-            Rmin = np.max(R)
-            # Calculate VIKOR preference values
-            Q = v * (S - Sstar) / (Smin - Sstar) + (1 - v) * (R - Rstar) / (Rmin - Rstar)
+            vikor = VIKOR()
+            pref = vikor(matrix, weights, types)
+        
             # Rank alternatives according to VIKOR preference values in ascending order
-            rank = rank_preferences(Q, reverse = False)
+            rank = rank_preferences(pref, reverse = False)
 
-            # add value for the acceptability index for each alternative considering rank
-            for el, r in enumerate(rank):
-                acceptability_index[el, r - 1] += 1
+            # add value for the rank acceptability index for each alternative considering rank and rank score
+            # iteration by each alternative
+            for k, r in enumerate(rank):
+                acceptability_index[k, r - 1] += 1
+                # rank score
+                # calculate how many alternatives have worst preference values than k-th alternative
+                # Note: in VIKOR better alternatives have lower preference values
+                better_ranks = pref[pref > pref[k]]
+                # add to k-th index value 1 for each alternative that is worse than k-th alternative
+                rank_score[k] += len(better_ranks)
+            
 
             # add central weights for the best scored alternative
-            ind_min = np.argmin(Q)
+            ind_min = np.argmin(pref)
             central_weights[ind_min, :] += weights
 
         #
-        # Calculate the acceptability index
+        # Calculate the rank acceptability index
         acceptability_index = acceptability_index / iterations
 
         # Calculate central the weights vectors
@@ -142,4 +124,8 @@ class VIKOR_SMAA(MCDA_method_smaa):
             if np.sum(central_weights[i, :]):
                 central_weights[i, :] = central_weights[i, :] / np.sum(central_weights[i, :])
 
-        return acceptability_index, central_weights
+        # Calculate rank scores
+        rank_score = rank_score / iterations
+        rank_scores = rank_preferences(rank_score, reverse = True)
+
+        return acceptability_index, central_weights, rank_scores

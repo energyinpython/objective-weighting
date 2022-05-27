@@ -289,7 +289,7 @@ def main():
     cols_ai = [str(el) for el in range(1, matrix.shape[0] + 1)]
 
     vikor_smaa = VIKOR_SMAA()
-    acceptability_index, central_weights = vikor_smaa(matrix, types, iterations = 10000)
+    acceptability_index, central_weights, rank_scores = vikor_smaa(matrix, types, iterations = 10000)
 
     acc_in_df = pd.DataFrame(acceptability_index, index = list_alt_names, columns = cols_ai)
     acc_in_df.to_csv('results_smaa/ai.csv')
@@ -299,6 +299,9 @@ def main():
 
     central_weights_df = pd.DataFrame(central_weights, index = list_alt_names, columns = cols)
     central_weights_df.to_csv('results_smaa/cw.csv')
+
+    rank_scores_df = pd.DataFrame(rank_scores, index = list_alt_names, columns = ['Rank'])
+    rank_scores_df.to_csv('results_smaa/fr.csv')
 
 
 if __name__ == '__main__':

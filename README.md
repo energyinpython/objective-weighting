@@ -1,6 +1,8 @@
 # objective-weighting
-The Python 3 Library of Objective Weighting Techniques for MCDA methods.
+The Python 3 Library of Objective Weighting Techniques for MCDA methods. 
 
+This library provides 11 objective criteria weighting methods and a Stochastic Multicriteria Acceptability Analysis Method (SMAA) 
+that does not require criteria weights.
 
 ## Installation
 
@@ -69,13 +71,18 @@ alternative gets the rank. Next, this vector is divided by the number of iterati
 vector describes the preferences of a typical decision-maker, supporting this alternative with the assumed preference model. It allows the 
 decision-maker to see what criteria preferences result in the best evaluation of given alternatives.
 
+### Rank scores
+
+Final ranking of alternatives provided by the ranking function, which adds to each alternative value of 1 each time it has better preference 
+values than each other.
+
 Here is example of use of the `VIKOR_SMAA` method:
 
 ```python
 from objective_weighting.mcda_methods import VIKOR_SMAA
 
 vikor_smaa = VIKOR_SMAA()
-acceptability_index, central_weights = vikor_smaa(matrix, types, iterations = 10000)
+acceptability_index, central_weights, rank_scores = vikor_smaa(matrix, types, iterations = 10000)
 ```
 
 ## License
