@@ -100,6 +100,7 @@ with multiple weight vectors.
 Output
 
 .. code-block:: console
+	
 	Preference values:  [[0.09618783 0.27346371 0.09902209 0.16314653 0.58629107 0.01900846
 	  0.85270574 0.28086327 0.24628691 0.05633723]
 	 [1.         0.40327448 1.         1.         1.         1.
@@ -127,6 +128,7 @@ using the ``rank_preferences`` method in following way:
 Output
 
 .. code-block:: console
+	
 	Rankings:  [[2. 3. 2. 4. 1. 2. 2. 1. 1. 4.]
 	 [5. 5. 5. 3. 6. 5. 4. 5. 4. 5.]
 	 [3. 6. 4. 6. 3. 4. 5. 3. 6. 6.]
