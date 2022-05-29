@@ -1,8 +1,10 @@
 import copy
+import time
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib
 import seaborn as sns
 
 from objective_weighting.mcda_methods import VIKOR
@@ -112,8 +114,6 @@ def draw_heatmap_smaa(data, title):
     >>> draw_heatmap(data, title)
     """
 
-    # plt.rcParams['xtick.bottom'] = plt.rcParams['xtick.labelbottom'] = False
-    # plt.rcParams['xtick.top'] = plt.rcParams['xtick.labeltop'] = True
     sns.set(font_scale=1.0)
     heatmap = sns.heatmap(data, annot=True, fmt=".2f", cmap="RdYlBu_r",
                         linewidth=0.05, linecolor='w')
@@ -167,6 +167,7 @@ class Create_dictionary(dict):
         self[key] = value
 
 
+
 # main
 def main():
     # Load data from CSV
@@ -185,7 +186,7 @@ def main():
     # Symbols for columns Cj
     cols = [r'$C_{' + str(j) + '}$' for j in range(1, data.shape[1] + 1)]
 
-    '''
+    
     # Part 1 - study with single weighting method
     
     # Determine criteria weights with chosen weighting method
@@ -198,13 +199,11 @@ def main():
     # Calculate alternatives preference function values with VIKOR method
     pref = vikor(matrix, weights, types)
 
-    # Rank alternatives according to preference values
+    # when there is only one (single) preference vector
     rank = rank_preferences(pref, reverse = False)
 
-    # save results in dataframe
-    df_results = pd.DataFrame(index = list_alt_names)
-    df_results['Pref'] = pref
-    df_results['Rank'] = rank
+    print(rank)
+
 
     # Part 2 - study with several weighting methods
     # Create a list with weighting methods that you want to explore
@@ -240,7 +239,9 @@ def main():
 
         df_weights[weight_type.__name__[:-10].upper().replace('_', ' ')] = weights
         pref = vikor(matrix, weights, types)
+
         rank = rank_preferences(pref, reverse = False)
+
         df_preferences[weight_type.__name__[:-10].upper().replace('_', ' ')] = pref
         df_rankings[weight_type.__name__[:-10].upper().replace('_', ' ')] = rank
         
@@ -272,36 +273,43 @@ def main():
 
     # Plot heatmap with rankings correlation
     draw_heatmap(df_new_heatmap_rw, r'$r_w$')
-
-    # check
-    # Central weight vector
-    w = np.array([0.0759, 0.0383, 0.0425, 0.0460, 0.0427, 0.1504, 0.1532, 0.1401, 0.0382, 0.1568, 0.1159])
-
-    pref = vikor(matrix, w, types)
-
-    # Rank alternatives according to preference values
-    rank = rank_preferences(pref, reverse = False)
-    print(rank)
-    '''
-
-    # SMAA
     
+
+    
+    # SMAA method
     cols_ai = [str(el) for el in range(1, matrix.shape[0] + 1)]
 
-    vikor_smaa = VIKOR_SMAA()
-    acceptability_index, central_weights, rank_scores = vikor_smaa(matrix, types, iterations = 10000)
+    # criteria number
+    n = matrix.shape[1]
+    # SMAA iterations number (number of weight vectors for SMAA)
+    iterations = 10000
 
-    acc_in_df = pd.DataFrame(acceptability_index, index = list_alt_names, columns = cols_ai)
+    start = time.time()
+    # create the VIKOR_SMAA object
+    vikor_smaa = VIKOR_SMAA()
+    # generate matrix with weight vectors for SMAA
+    weight_vectors = vikor_smaa._generate_weights(n, iterations)
+
+    # run the VIKOR_SMAA method
+    rank_acceptability_index, central_weight_vector, rank_scores = vikor_smaa(matrix, weight_vectors, types)
+
+    end = time.time() - start
+    print('Run time: ', end)
+    
+    acc_in_df = pd.DataFrame(rank_acceptability_index, index = list_alt_names, columns = cols_ai)
     acc_in_df.to_csv('results_smaa/ai.csv')
+
+    matplotlib.rcdefaults()
     plot_barplot(acc_in_df, 'Alternative', 'Rank acceptability index', 'Rank')
 
     draw_heatmap_smaa(acc_in_df, 'Rank acceptability indexes')
 
-    central_weights_df = pd.DataFrame(central_weights, index = list_alt_names, columns = cols)
+    central_weights_df = pd.DataFrame(central_weight_vector, index = list_alt_names, columns = cols)
     central_weights_df.to_csv('results_smaa/cw.csv')
 
     rank_scores_df = pd.DataFrame(rank_scores, index = list_alt_names, columns = ['Rank'])
     rank_scores_df.to_csv('results_smaa/fr.csv')
+    
 
 
 if __name__ == '__main__':

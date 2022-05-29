@@ -20,6 +20,11 @@ Usage examples
 The VIKOR method
 __________________
 
+The VIKOR method provided in this library can be used with single weight vector and with multiple weight vectors, like in the Stochastic Multicriteria Acceptability 
+Analysis (SMAA) method.
+
+Using the VIKOR method with single weight vector:
+
 .. code-block:: python
 
 	import numpy as np
@@ -58,6 +63,78 @@ Output
 
 	Preference values:  [0.6399 1.     0.6929 0.2714 0.     0.6939]
 	Ranking:  [3 6 4 2 1 5]
+	
+	
+The VIKOR method provided in the ``objective-weighting`` library can also be used with multiple weight vectors provided in the matrix. This matrix
+includes weight vectors in rows. The number of rows is equal to the vectors number, and the number of columns is equal to the criteria number. In this case,
+the VIKOR method returns a matrix with preference values. Vectors with preference values for each weight vector are contained in each column. The number
+of rows of the matrix with preference values is equal to the number of alternatives, and the number of columns is equal to the number of weight vectors.
+This functionality is useful for Stochastic Multicriteria Acceptability Analysis (SMAA) methods. Here is demonstrated how it works using the VIKOR method
+with multiple weight vectors.
+
+.. code-block:: python
+	
+	import numpy as np
+	from objective_weighting.additions import rank_preferences
+	from objective_weighting.mcda_methods import VIKOR, VIKOR_SMAA
+
+	matrix = np.array([[256, 8, 41, 1.6, 1.77, 7347.16],
+	[256, 8, 32, 1.0, 1.8, 6919.99],
+	[256, 8, 53, 1.6, 1.9, 8400],
+	[256, 8, 41, 1.0, 1.75, 6808.9],
+	[512, 8, 35, 1.6, 1.7, 8479.99],
+	[256, 4, 35, 1.6, 1.7, 7499.99]])
+
+	n = matrix.shape[1]
+	iterations = 10
+
+	types = np.array([1, 1, 1, 1, -1, -1])
+
+	vikor_smaa = VIKOR_SMAA()
+	weight_vectors = vikor_smaa._generate_weights(n, iterations)
+
+	vikor = VIKOR()
+	pref = vikor(matrix, weight_vectors, types)
+	print(pref)
+	
+Output
+
+.. code-block:: console
+	Preference values:  [[0.09618783 0.27346371 0.09902209 0.16314653 0.58629107 0.01900846
+	  0.85270574 0.28086327 0.24628691 0.05633723]
+	 [1.         0.40327448 1.         1.         1.         1.
+	  0.97327618 0.29458204 0.94333641 1.        ]
+	 [0.28701119 1.         0.55618621 0.231067   0.57237663 0.52735721
+	  0.95398644 0.29797528 0.         0.41316479]
+	 [0.85675331 0.21838546 0.8992903  0.89447867 0.95984659 0.89945467
+	  0.8867631  0.27612402 0.32504461 0.89805712]
+	 [0.03792154 0.         0.         0.         0.         0.22357098
+	  0.         0.         0.50907579 0.01255136]
+	 [0.42033457 0.34191157 0.30924524 0.30984365 0.64516556 0.02140185
+	  1.         1.         0.86570054 0.05526169]]
+	  
+Matrix with preference values includes subsequent vectors with preference values in columns. We can rank preferences in this matrix 
+using the ``rank_preferences`` method in following way:
+
+.. code-block:: python
+
+	rank = np.zeros((pref.shape))
+	for i in range(pref.shape[1]):
+		rank[:, i] = rank_preferences(pref[:, i], reverse = False)
+
+	print('Rankings: ', rank)
+	
+Output
+
+.. code-block:: console
+	Rankings:  [[2. 3. 2. 4. 1. 2. 2. 1. 1. 4.]
+	 [5. 5. 5. 3. 6. 5. 4. 5. 4. 5.]
+	 [3. 6. 4. 6. 3. 4. 5. 3. 6. 6.]
+	 [4. 4. 1. 2. 2. 3. 1. 2. 3. 2.]
+	 [1. 1. 3. 1. 5. 1. 6. 4. 5. 1.]
+	 [6. 2. 6. 5. 4. 6. 3. 6. 2. 3.]]
+	 
+Now each column of the above matrix contains a ranking generated for each weight vector.
 	
 
 Correlation coefficents
@@ -418,12 +495,24 @@ Output
 Stochastic Multicriteria Acceptability Analysis Method - SMAA (VIKOR_SMAA)
 _______________________________________________________________________________
 
+
+
 .. code-block:: python
 
 	from objective_weighting.mcda_methods import VIKOR_SMAA
-
+	
+	# Criteria number
+	n = matrix.shape[1]
+	# Number of weight vectors to generate for SMAA
+    iterations = 10000
+	
+	# Create the object of the ``VIKOR_SMAA`` method
 	vikor_smaa = VIKOR_SMAA()
-	acceptability_index, central_weights = vikor_smaa(matrix, types, iterations = 10000)
+	# Generate weight vectors for SMAA. Number of weight vectors is equal to ``iterations`` number. Vectors include ``n`` values.
+    weight_vectors = vikor_smaa._generate_weights(n, iterations)
+
+	# Calculate Rank acceptability index, Central weight vector and final ranking based on SMAA method combined with VIKOR
+	rank_acceptability_index, central_weight_vector, rank_scores = vikor_smaa(matrix, weight_vectors, types)
 	
 	
 	

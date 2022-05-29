@@ -37,7 +37,7 @@ class Test_Rank_preferences(unittest.TestCase):
         (pp. 31-55). Springer, Cham."""
 
         pref = np.array([0.640, 1.000, 0.693, 0.271, 0.000, 0.694])
-        test_result =rank_preferences(pref , reverse = False)
+        test_result = rank_preferences(pref , reverse = False)
         real_result = np.array([3, 6, 4, 2, 1, 5])
         self.assertEqual(list(test_result), list(real_result))
 
