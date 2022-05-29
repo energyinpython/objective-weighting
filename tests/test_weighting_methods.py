@@ -9,7 +9,8 @@ class Test_CRITIC(unittest.TestCase):
 
     def test_critic(self):
         """Test based on paper Tuş, A., & Aytaç Adalı, E. (2019). The new combination with CRITIC and WASPAS methods 
-        for the time and attendance software selection problem. Opsearch, 56(2), 528-538."""
+        for the time and attendance software selection problem. Opsearch, 56(2), 528-538. 
+        DOI: https://doi.org/10.1007/s12597-019-00371-6"""
 
         matrix = np.array([[5000, 3, 3, 4, 3, 2],
         [680, 5, 3, 2, 2, 1],
@@ -30,7 +31,7 @@ class Test_MEREC(unittest.TestCase):
     def test_merec(self):
         """Test based on paper Keshavarz-Ghorabaee, M., Amiri, M., Zavadskas, E. K., Turskis, Z., & Antucheviciene, 
         J. (2021). Determination of objective weights using a new method based on the removal 
-        effects of criteria (MEREC). Symmetry, 13(4), 525."""
+        effects of criteria (MEREC). Symmetry, 13(4), 525. DOI: https://doi.org/10.3390/sym13040525"""
 
         matrix = np.array([[450, 8000, 54, 145],
         [10, 9100, 2, 160],
@@ -51,7 +52,7 @@ class Test_Entropy(unittest.TestCase):
     def test_Entropy(self):
         """Test based on paper Xu, X. (2004). A note on the subjective and objective integrated approach to 
         determine attribute weights. European Journal of Operational Research, 156(2), 
-        530-532."""
+        530-532. DOI: https://doi.org/10.1016/S0377-2217(03)00146-2"""
 
         matrix = np.array([[30, 30, 38, 29],
         [19, 54, 86, 29],
@@ -67,7 +68,7 @@ class Test_Entropy(unittest.TestCase):
     def test_Entropy2(self):
         """Test based on paper Zavadskas, E. K., & Podvezko, V. (2016). Integrated determination of objective 
         criteria weights in MCDM. International Journal of Information Technology & Decision 
-        Making, 15(02), 267-283."""
+        Making, 15(02), 267-283. DOI: https://EconPapers.repec.org/RePEc:wsi:ijitdm:v:15:y:2016:i:02:n:s0219622016500036"""
 
         matrix = np.array([[3.0, 100, 10, 7],
         [2.5, 80, 8, 5],
@@ -82,7 +83,7 @@ class Test_Entropy(unittest.TestCase):
 
     def test_Entropy3(self):
         """Test based on paper Ersoy, Y. (2021). Equipment selection for an e-commerce company using entropy-based 
-        topsis, edas and codas methods during the COVID-19. LogForum, 17(3)."""
+        topsis, edas and codas methods during the COVID-19. LogForum, 17(3). DOI: http://doi.org/10.17270/J.LOG.2021.603"""
 
         matrix = np.array([[256, 8, 41, 1.6, 1.77, 7347.16],
         [256, 8, 32, 1.0, 1.8, 6919.99],
@@ -100,7 +101,7 @@ class Test_Entropy(unittest.TestCase):
     def test_Entropy4(self):
         """Test based on paper Lee, H. C., & Chang, C. T. (2018). Comparative analysis of MCDM 
         methods for ranking renewable energy sources in Taiwan. Renewable and Sustainable Energy 
-        Reviews, 92, 883-896."""
+        Reviews, 92, 883-896. DOI: https://doi.org/10.1016/j.rser.2018.05.007"""
 
         matrix = np.array([[4550, 30, 6.74, 20, 15, 5, 85, 150, 0.87, 4.76],
         [3005, 60.86, 2.4, 35, 27, 4, 26, 200, 0.17, 4.51],
@@ -120,7 +121,7 @@ class Test_CILOS(unittest.TestCase):
 
     def test_cilos(self):
         """Test based on paper Alinezhad, A., & Khalili, J. (2019). New methods and applications in multiple 
-        attribute decision making (MADM) (Vol. 277). Cham: Springer."""
+        attribute decision making (MADM) (Vol. 277). Cham: Springer. DOI: https://doi.org/10.1007/978-3-030-15009-9"""
 
         matrix = np.array([[3, 100, 10, 7],
         [2.500, 80, 8, 5],
@@ -137,7 +138,7 @@ class Test_CILOS(unittest.TestCase):
     def test_cilos2(self):
         """Test based on paper Zavadskas, E. K., & Podvezko, V. (2016). Integrated determination of objective 
         criteria weights in MCDM. International Journal of Information Technology & Decision 
-        Making, 15(02), 267-283."""
+        Making, 15(02), 267-283. DOI: https://EconPapers.repec.org/RePEc:wsi:ijitdm:v:15:y:2016:i:02:n:s0219622016500036"""
 
         matrix = np.array([[0.6, 100, 0.8, 7],
         [0.72, 80, 1, 5],
@@ -157,7 +158,7 @@ class Test_IDOCRIW(unittest.TestCase):
     def test_idocriw(self):
         """Test based on paper Zavadskas, E. K., & Podvezko, V. (2016). Integrated determination of objective 
         criteria weights in MCDM. International Journal of Information Technology & Decision 
-        Making, 15(02), 267-283."""
+        Making, 15(02), 267-283. DOI: https://EconPapers.repec.org/RePEc:wsi:ijitdm:v:15:y:2016:i:02:n:s0219622016500036"""
 
         matrix = np.array([[3.0, 100, 10, 7],
         [2.5, 80, 8, 5],
@@ -177,7 +178,7 @@ class Test_Angle(unittest.TestCase):
     def test_angle(self):
         """Test based on paper Shuai, D., Zongzhun, Z., Yongji, W., & Lei, L. (2012, May). A new angular method to 
         determine the objective weights. In 2012 24th Chinese Control and Decision Conference 
-        (CCDC) (pp. 3889-3892). IEEE."""
+        (CCDC) (pp. 3889-3892). IEEE. DOI: https://doi.org/10.1109/CCDC.2012.6244621"""
 
         matrix = np.array([[30, 30, 38, 29],
         [19, 54, 86, 29],
@@ -197,7 +198,7 @@ class Test_Coeff_var(unittest.TestCase):
     def test_coeff_var(self):
         """Test based on paper Shuai, D., Zongzhun, Z., Yongji, W., & Lei, L. (2012, May). A new angular method to 
         determine the objective weights. In 2012 24th Chinese Control and Decision Conference 
-        (CCDC) (pp. 3889-3892). IEEE."""
+        (CCDC) (pp. 3889-3892). IEEE. DOI: https://doi.org/10.1109/CCDC.2012.6244621"""
 
         matrix = np.array([[30, 30, 38, 29],
         [19, 54, 86, 29],
@@ -217,7 +218,7 @@ class Test_STD(unittest.TestCase):
     def test_std(self):
         """Test based on paper Sałabun, W., Wątróbski, J., & Shekhovtsov, A. (2020). Are mcda methods benchmarkable? 
         a comparative study of topsis, vikor, copras, and promethee ii methods. Symmetry, 12(9), 
-        1549."""
+        1549. DOI: https://doi.org/10.3390/sym12091549"""
 
         matrix = np.array([[0.619, 0.449, 0.447],
         [0.862, 0.466, 0.006],
@@ -238,7 +239,7 @@ class Test_equal(unittest.TestCase):
     def test_equal(self):
         """Test based on paper Sałabun, W., Wątróbski, J., & Shekhovtsov, A. (2020). Are mcda methods benchmarkable? 
         a comparative study of topsis, vikor, copras, and promethee ii methods. Symmetry, 12(9), 
-        1549."""
+        1549. DOI: https://doi.org/10.3390/sym12091549"""
 
         matrix = np.array([[0.619, 0.449, 0.447],
         [0.862, 0.466, 0.006],
@@ -259,7 +260,7 @@ class Test_stat_var(unittest.TestCase):
     def test_stat_var(self):
         """Test based on paper Sałabun, W., Wątróbski, J., & Shekhovtsov, A. (2020). Are mcda methods benchmarkable? 
         a comparative study of topsis, vikor, copras, and promethee ii methods. Symmetry, 12(9), 
-        1549."""
+        1549. DOI: https://doi.org/10.3390/sym12091549"""
 
         matrix = np.array([[0.619, 0.449, 0.447],
         [0.862, 0.466, 0.006],
@@ -282,7 +283,7 @@ class Test_gini(unittest.TestCase):
         """Test based on paper Bączkiewicz, A., Wątróbski, J., Kizielewicz, B., & Sałabun, W. (2021). Towards 
         Reliable Results-A Comparative Analysis of Selected MCDA Techniques in the Camera 
         Selection Problem. In Information Technology for Management: Business and Social Issues 
-        (pp. 143-165). Springer, Cham."""
+        (pp. 143-165). Springer, Cham. DOI: 10.1007/978-3-030-98997-2_7"""
 
         matrix = np.array([[29.4, 83, 47, 114, 12, 30, 120, 240, 170, 90, 1717.75],
         [30, 38.1, 124.7, 117, 16, 60, 60, 60, 93, 70, 2389],

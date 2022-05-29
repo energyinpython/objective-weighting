@@ -10,7 +10,7 @@ class Test_VIKOR(unittest.TestCase):
 
     def test_vikor(self):
         """Test based on paper Papathanasiou, J., & Ploskas, N. (2018). Vikor. In Multiple Criteria Decision Aid 
-        (pp. 31-55). Springer, Cham."""
+        (pp. 31-55). Springer, Cham. DOI: https://doi.org/10.1007/978-3-319-91648-4_2"""
 
         matrix = np.array([[8, 7, 2, 1],
         [5, 3, 7, 5],
@@ -34,7 +34,7 @@ class Test_Rank_preferences(unittest.TestCase):
 
     def test_rank_preferences(self):
         """Test based on paper Papathanasiou, J., & Ploskas, N. (2018). Vikor. In Multiple Criteria Decision Aid 
-        (pp. 31-55). Springer, Cham."""
+        (pp. 31-55). Springer, Cham. DOI: https://doi.org/10.1007/978-3-319-91648-4_2"""
 
         pref = np.array([0.640, 1.000, 0.693, 0.271, 0.000, 0.694])
         test_result = rank_preferences(pref , reverse = False)
