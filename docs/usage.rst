@@ -61,7 +61,12 @@ Output
 
 .. code-block:: console
 
-	Preference values:  [0.6399 1.     0.6929 0.2714 0.     0.6939]
+	Preference values:  [[0.6399]
+	 [1.    ]
+	 [0.6929]
+	 [0.2714]
+	 [0.    ]
+	 [0.6939]]
 	Ranking:  [3 6 4 2 1 5]
 	
 	
