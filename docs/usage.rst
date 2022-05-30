@@ -502,16 +502,16 @@ _______________________________________________________________________________
 .. code-block:: python
 
 	from objective_weighting.mcda_methods import VIKOR_SMAA
-	
+
 	# Criteria number
 	n = matrix.shape[1]
 	# Number of weight vectors to generate for SMAA
-    iterations = 10000
-	
+	iterations = 10000
+
 	# Create the object of the ``VIKOR_SMAA`` method
 	vikor_smaa = VIKOR_SMAA()
 	# Generate weight vectors for SMAA. Number of weight vectors is equal to ``iterations`` number. Vectors include ``n`` values.
-    weight_vectors = vikor_smaa._generate_weights(n, iterations)
+	weight_vectors = vikor_smaa._generate_weights(n, iterations)
 
 	# Calculate Rank acceptability index, Central weight vector and final ranking based on SMAA method combined with VIKOR
 	rank_acceptability_index, central_weight_vector, rank_scores = vikor_smaa(matrix, weight_vectors, types)
